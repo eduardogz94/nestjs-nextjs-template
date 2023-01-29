@@ -72,7 +72,7 @@ jobs:
       - name: Install dependencies🔧
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js 👨‍🔧
-        run: ${{ steps.detect-package-manager.outputs.runner }} cd src/client && next yarn build
+        run: ${{ steps.detect-package-manager.outputs.runner }} && cd src/client && yarn build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@main
         with:
