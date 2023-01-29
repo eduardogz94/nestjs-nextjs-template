@@ -14,18 +14,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.cjs",
-    "**/*.mjs",
-    "app",
-    "pages",
-    "src",
-    "components",
-    "../common"
+    "app/**.{ts,tsx}",
+    "**/*.{ts,tsx,cjs,mjs}",
+    "../common",
+    "../../.next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

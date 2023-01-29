@@ -1,12 +1,8 @@
-import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-const Home: NextPage<{ data: string }> = (props) => {
-  const { data } = props;
-
+const HomeLayout = (props) => {
   console.log({ props });
-
   return (
     <>
       <Head>
@@ -49,8 +45,7 @@ const Home: NextPage<{ data: string }> = (props) => {
   );
 };
 
-Home.getInitialProps = ({ query }) => {
-  console.log({ query });
+HomeLayout.getInitialProps = ({ query }) => {
   return {
     data: `some initial props including query params and controller data: ${JSON.stringify(
       query
@@ -58,4 +53,4 @@ Home.getInitialProps = ({ query }) => {
   };
 };
 
-export default Home;
+export default HomeLayout;

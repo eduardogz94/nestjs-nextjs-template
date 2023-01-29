@@ -22,14 +22,6 @@
   "ts-node": {
     "files": true
   },
-  "include": [
-    "src/server",
-    "test",
-    "ormconfig.ts",
-    "jest.config.ts",
-    "src/env/",
-    "src/common",
-    "src/config"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["src/server", "src/env/", "src/common", "src/config", "test", "ormconfig.ts", "jest.config.ts"],
+  "exclude": ["node_modules, src/client"]
 }

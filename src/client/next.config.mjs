@@ -7,12 +7,15 @@
 const config = {
   reactStrictMode: true,
   distDir: "../../.next",
+  experimental: {
+    appDir: true,
+  },
   i18n: {
     locales: ["en", "es"],
     defaultLocale: "en",
   },
   eslint: {
-    dirs: ["src/client"],
+    dirs: ["./src/client"],
   },
 };
 export default config;

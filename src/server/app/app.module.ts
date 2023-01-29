@@ -19,10 +19,7 @@ import { AuthModule } from './auth/auth.module';
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
-        ssl:
-          configService.get<string>('NODE_ENV') === 'production'
-            ? { rejectUnauthorized: false }
-            : false,
+        ssl: configService.get<string>('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
       }),
       inject: [ConfigService],
     }),
