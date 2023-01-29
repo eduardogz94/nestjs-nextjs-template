@@ -26,6 +26,26 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # // this should be implemented dynamically in the future
+      - name: Creating .env  🔑
+        run: |
+          touch .env.production
+          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
+          echo API_KEY=${{ secrets.API_KEY }} >> .env
+          echo JWT_SECRET="secret" >> .env
+          echo JWT_EXPIRES_IN="10d" >> .env
+          echo DB_CONNECTION_ALIVE="true" >> .env
+          echo TYPEORM_ENTITIES=" src/server/entities/**/*.ts" >> .env
+          echo TYPEORM_MIGRATIONS=" src/server/migrations/*-*.*ts" >> .env
+          echo TYPEORM_USERNAME="postgres" >> .env
+          echo TYPEORM_PASSWORD="postgres" >> .env
+          echo TYPEORM_PORT="5432" >> .env
+          echo TYPEORM_HOST="localhost" >> .env
+          echo TYPEORM_DATABASE="test" >> .env
+          echo DATABASE_URL="postgres://postgres:postgres@localhost:5432/test" >> .env
+          echo NODE_ENV="development" >> .env
+          echo BACKEND_PORT="8080" >> .env
+          cat .env
       - name: Checkout 🛎️
         uses: actions/checkout@main
         with:
@@ -70,9 +90,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies🔧
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: cd src/client && ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js 👨‍🔧
-        run: ${{ steps.detect-package-manager.outputs.runner }} && cd src/client && yarn install && yarn build
+        run: cd src/client && ${{ steps.detect-package-manager.outputs.runner }} build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@main
         with:
