@@ -1,23 +1,35 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "target": "es2017",
     "declaration": true,
+    "skipLibCheck": true,
     "removeComments": true,
+    "forceConsistentCasingInFileNames": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
+    "esModuleInterop": true,
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
-  "include": ["src/server", "test", "ormconfig.ts", "jest.config.ts"],
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "src/server",
+    "test",
+    "ormconfig.ts",
+    "jest.config.ts",
+    "src/env/",
+    "src/common",
+    "src/config"
+  ],
   "exclude": ["node_modules"]
 }
