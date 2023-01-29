@@ -23,7 +23,7 @@ export class ViewService implements OnModuleInit {
       await this.server.prepare();
       this.loggerService.log('Next.js server initialized.');
     } catch (error) {
-      console.error(error);
+      this.loggerService.error(error);
     }
   }
 

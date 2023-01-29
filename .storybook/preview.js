@@ -1,6 +1,9 @@
+// @ts-check
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import * as NextImage from 'next/image';
-import '../pages/globals.css';
+import React from 'react';
+import '../src/client/pages/globals.css';
+import StorageProvider from '../src/client/providers/StorageProvider';
 
 const BREAKPOINTS_INT = {
   xs: 375,
@@ -12,7 +15,6 @@ const BREAKPOINTS_INT = {
 
 const customViewports = Object.fromEntries(
   Object.entries(BREAKPOINTS_INT).map(([key, val], idx) => {
-    console.log(val);
     return [
       key,
       {
@@ -33,6 +35,14 @@ Object.defineProperty(NextImage, 'default', {
   configurable: true,
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
+
+export const decorators = [
+  (Story) => (
+    <StorageProvider>
+      <Story />
+    </StorageProvider>
+  ),
+];
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

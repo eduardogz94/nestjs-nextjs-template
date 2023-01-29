@@ -1,7 +1,8 @@
 {
   "name": "next-nest-template",
-  "version": "1.0.0",
-  "description": "Simple template for a next-nest SSR application",
+  "version": "0.1.0",
+  "private": true,
+  "description": "template for a next-nest SSR application",
   "engines": {
     "node": ">=16.0.0",
     "yarn": ">=1.22.0"
@@ -9,9 +10,9 @@
   "scripts": {
     "nest": "nest ",
     "next": "cd src/client && next ",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && rimraf .next",
     "build": "NODE_ENV=production nest build && cd src/client && next build && yarn build:tailwind",
-    "build:tailwind": "tailwindcss -i src/client/styles/globals.css -o ./.next/server/styles/globals.css ",
+    "build:tailwind": "tailwindcss -i src/client/pages/globals.css -o ./.next/server/pages/globals.css ",
     "format": "prettier --write \"src/**/*.{ts, tsx}\" ",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -29,9 +30,10 @@
     "clean-modules": "npx rimraf node_modules && npx rimraf package-lock.json && yarn cache clean --force && yarn install",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "generateComponent": "generact src/client/components/templates/base"
   },
-  "author": "",
+  "author": "Eduardo Gonzalez Zangarini",
   "license": "ISC",
   "dependencies": {
     "@nestjs/common": "^9.1.6",
@@ -63,6 +65,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@nestjs/cli": "^9.1.5",
     "@nestjs/schematics": "^9.0.3",
     "@nestjs/testing": "^9.2.1",
@@ -71,6 +75,7 @@
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/react": "^6.5.16",
@@ -98,7 +103,7 @@
     "eslint-plugin-storybook": "^0.6.10",
     "husky": "^8.0.3",
     "jest": "^28.1.3",
-    "postcss": "^8.4.14",
+    "postcss": "^8.4.12",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "rimraf": "^3.0.2",

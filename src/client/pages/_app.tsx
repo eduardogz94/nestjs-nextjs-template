@@ -1,9 +1,18 @@
-import { type AppType } from "next/dist/shared/lib/utils";
+import type { AppProps } from "next/app";
+import StorageProvider from "../providers/StorageProvider";
+import "./globals.css";
+import { NextPageWithLayout } from "./page";
 
-import "../styles/globals.css";
+interface AppPropsWithLayout extends AppProps {
+  Component: NextPageWithLayout;
+}
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+const MyApp: AppPropsWithLayout = ({ Component, pageProps }) => {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page);
+  return (
+    <StorageProvider>{getLayout(<Component {...pageProps} />)}</StorageProvider>
+  );
 };
 
 export default MyApp;
