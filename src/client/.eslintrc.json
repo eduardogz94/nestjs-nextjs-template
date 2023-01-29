@@ -1,7 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint/eslint-plugin"],
-  "extends": ["next/core-web-vitals"],
+  "extends": ["plugin:storybook/recommended", "next", "next/core-web-vitals"],
   "root": true,
   "env": {
     "jest": true
@@ -11,5 +11,13 @@
   },
   "rules": {
     "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.@(js|jsx|ts|tsx)"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
 }
