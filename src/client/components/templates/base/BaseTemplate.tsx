@@ -5,7 +5,7 @@ export interface IBaseTemplate {
 }
 
 const BaseTemplate: React.FC<IBaseTemplate> = ({ sample }) => {
-  return <div className={styles.container}>{sample}</div>;
+  return <div className={styles.base}>{sample}</div>;
 };
 
 export default BaseTemplate;

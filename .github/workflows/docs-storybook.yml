@@ -26,8 +26,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout🛎️
-        uses: actions/checkout@v2.3.1
+      - name: Checkout 🛎️
+      - uses: actions/checkout@main
         with:
           persist-credentials: false
       - name: Detect package manager
@@ -47,8 +47,8 @@ jobs:
             echo "Unable to determine packager manager"
             exit 1
           fi
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Node 🔜
+        uses: actions/setup-node@main
         with:
           node-version: '16'
           cache: ${{ steps.detect-package-manager.outputs.manager }}
@@ -59,8 +59,8 @@ jobs:
       # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
       # You may remove this line if you want to manage the configuration yourself.
       #  static_site_generator: next
-      - name: Restore cache
-        uses: actions/cache@v3
+      - name: Restore cache 💽
+        uses: actions/cache@main
         with:
           path: |
             .next/cache
@@ -71,10 +71,10 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies🔧
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Build with Next.js🔧
+      - name: Build with Next.js 👨‍🔧
         run: ${{ steps.detect-package-manager.outputs.runner }} cd src/client && next build
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.6.2
+        uses: JamesIves/github-pages-deploy-action@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: main # The branch the action should deploy to.
