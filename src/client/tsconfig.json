@@ -13,10 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./", // This must be specified if "paths" is.
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "./" // This must be specified if "paths" is.
   },
   "include": [
     "next-env.d.ts",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum STORAGE_ENUM {
   local = "local",
   context = "memory",
@@ -15,5 +16,5 @@ export const STORAGES = {
 };
 
 export const STORAGES_AVAILABLES = Object.values(STORAGES)
-  .filter((storage: { enabled: boolean; }) => storage.enabled)
-  .map((storage: { type: STORAGE_ENUM; }) => storage.type);
+  .filter((storage) => storage.enabled)
+  .map((storage) => storage.type);

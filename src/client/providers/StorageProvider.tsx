@@ -1,13 +1,18 @@
+"use client";
+/* eslint-disable no-unused-vars */
 import { cloneDeep } from "lodash";
-import { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { STORAGES, STORAGES_AVAILABLES } from "./constants";
 
 type IStorageData = Record<string, unknown>;
 
 interface IContextStore {
   storage: IStorageData;
-  get(key: string): any;
-  set(key: string, data: any): any;
+  get: (key: keyof IStorageData) => IStorageData[keyof IStorageData];
+  set: (
+    key: keyof IStorageData,
+    data: unknown
+  ) => IStorageData[keyof IStorageData];
   intervalResetter(key: string, time?: number, cb?: () => void): NodeJS.Timeout;
 }
 
@@ -18,13 +23,17 @@ enum STORAGE_ACTIONS {
 
 const storageReducer = (
   state: IStorageData,
-  action: { key: string; data: any; type: STORAGE_ACTIONS }
+  action: { key: keyof IStorageData; data: any; type: STORAGE_ACTIONS }
 ) => {
   switch (action.type) {
     case STORAGE_ACTIONS.SET:
-      return { ...state, [action.key]: action.data };
+      var _state = cloneDeep(state);
+      _state[action.key] = action.data;
+      return _state;
     case STORAGE_ACTIONS.CLEAR:
-      return { ...state, [action.key]: null };
+      var _state = cloneDeep(state);
+      _state[action.key] = null;
+      return _state;
     default:
       return state;
   }
@@ -35,22 +44,21 @@ const useContextStore = (): IContextStore => {
 
   return {
     storage: store,
-    get(key: string) {
+    get: function (key: keyof IStorageData) {
       return this.storage?.[key];
     },
-    set(key: string, data: any) {
+    set(key: keyof IStorageData, data: unknown) {
       dispatch({ key, data, type: STORAGE_ACTIONS.SET });
-      this.storage = cloneDeep(this.storage);
-      this.storage[key] = data;
-      return this.storage;
+      return this.storage[key];
     },
     intervalResetter(key: string, time = 3600000, cb = () => {}) {
       const interval = setInterval(() => {
         cb();
-        dispatch({ key, data: null, type: STORAGE_ACTIONS.CLEAR });
-        this.storage = cloneDeep(this.storage);
-        this.storage[key] = null;
-        return this.storage;
+        dispatch({
+          key,
+          data: null,
+          type: STORAGE_ACTIONS.CLEAR,
+        });
       }, time);
 
       return interval;
@@ -59,8 +67,8 @@ const useContextStore = (): IContextStore => {
 };
 
 interface ILocalStorageStore {
-  get(key: string): any;
-  set(key: string, data: any): any;
+  get: (key: string) => string | null;
+  set: (key: string, data: any) => string | null;
 }
 
 const useLocalStorageStore = (): ILocalStorageStore => {

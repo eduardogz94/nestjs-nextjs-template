@@ -1,9 +1,9 @@
 // @ts-check
-import { RouterContext } from 'next/dist/shared/lib/router-context';
-import * as NextImage from 'next/image';
-import React from 'react';
-import '../src/client/pages/globals.css';
-import StorageProvider from '../src/client/providers/StorageProvider';
+import { RouterContext } from "next/dist/shared/lib/router-context";
+import * as NextImage from "next/image";
+import React from "react";
+import "../pages/globals.css";
+import StorageProvider from "../providers/StorageProvider";
 
 const BREAKPOINTS_INT = {
   xs: 375,
@@ -25,13 +25,13 @@ const customViewports = Object.fromEntries(
         },
       },
     ];
-  }),
+  })
 );
 
 // Allow Storybook to handle Next's <Image> component
 const OriginalNextImage = NextImage.default;
 
-Object.defineProperty(NextImage, 'default', {
+Object.defineProperty(NextImage, "default", {
   configurable: true,
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
@@ -45,7 +45,7 @@ export const decorators = [
 ];
 
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
+  actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
     matchers: {
       color: /(background|color)$/i,
@@ -53,7 +53,7 @@ export const parameters = {
     },
   },
   viewport: { viewports: customViewports },
-  layout: 'fullscreen',
+  layout: "fullscreen",
   nextRouter: {
     Provider: RouterContext.Provider,
   },
