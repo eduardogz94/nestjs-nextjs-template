@@ -10,8 +10,9 @@
     "nest": "nest ",
     "next": "cd src/client && next ",
     "prebuild": "rimraf dist",
-    "build": "NODE_ENV=production nest build && cd src/client && next build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "build": "NODE_ENV=production nest build && cd src/client && next build && yarn build:tailwind",
+    "build:tailwind": "tailwindcss -i src/client/styles/globals.css -o ./.next/server/styles/globals.css ",
+    "format": "prettier --write \"src/**/*.{ts, tsx}\" ",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -53,6 +54,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tailwindcss": "^3.2.0",
+    "type-fest": "^3.5.3",
     "typeorm": "^0.3.11",
     "url": "^0.11.0"
   },
@@ -74,6 +76,7 @@
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "autoprefixer": "^10.4.7",
+    "class-transformer": "^0.5.1",
     "dotenv-flow": "^3.2.0",
     "eslint": "^8.31.0",
     "eslint-config-next": "^13.1.6",
@@ -83,12 +86,14 @@
     "postcss": "^8.4.14",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
-    "supertest": "^6.3.3",
     "rimraf": "^3.0.2",
+    "standard": "^17.0.0",
+    "supertest": "^6.3.3",
     "ts-jest": "^28.0.8",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "winston": "^3.8.2"
   }
 }

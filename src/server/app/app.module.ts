@@ -7,7 +7,9 @@ import { SeedService } from 'src/server/console/seed.service';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
 import { AuthModule } from './auth/auth.module';
+import { CoreModule } from '../core/core.module';
 
 @Module({
   imports: [
@@ -19,12 +21,16 @@ import { AuthModule } from './auth/auth.module';
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
-        ssl: configService.get<string>('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
+        ssl:
+          configService.get<string>('NODE_ENV') === 'production'
+            ? { rejectUnauthorized: false }
+            : false,
       }),
       inject: [ConfigService],
     }),
     ConsoleModule,
     AuthModule,
+    CoreModule,
   ],
   providers: [SeedService, AppService],
   controllers: [AppController],

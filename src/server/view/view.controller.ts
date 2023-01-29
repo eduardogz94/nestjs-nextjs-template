@@ -15,10 +15,10 @@ export class ViewController {
       .render(req, res, parsedUrl.pathname, parsedUrl.query);
   }
 
-  @Get('Home')
+  @Get('/home')
   public async showHome(@Req() req: Request, @Res() res: Response) {
     const parsedUrl = parse(req.url, true);
-    const serverSideProps = { dataFromController: '123' };
+    const serverSideProps = { test: '123' };
     await this.viewService
       .getNextServer()
       .render(

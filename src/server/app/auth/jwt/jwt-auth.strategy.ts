@@ -9,7 +9,7 @@ export type JwtPayload = { sub: number; username: string };
 @Injectable()
 export class JwtAuthStrategy extends PassportStrategy(Strategy) {
   constructor(configService: ConfigService) {
-    const extractJwtFromCookie = req => {
+    const extractJwtFromCookie = (req) => {
       let token = null;
 
       if (req && req.cookies) {
