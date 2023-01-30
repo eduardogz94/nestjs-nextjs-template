@@ -25,12 +25,10 @@ concurrency:
 jobs:
   build-and-deploy:
     environment:
-      name: ${ { inputs.target-env } }
+      name: production
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 target evn ${ { inputs.target-env} }"
-      - run: echo "🎉 target evn inputs.target-env"
-      
+      - run: echo "🎉 target evn ${ { vars.NODE_ENV} }"
       - name: Checkout 🛎️
         uses: actions/checkout@main
         with:
@@ -77,8 +75,9 @@ jobs:
       - name: Install dependencies🔧
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Install dependencies for client 🔧
-        run: cd src/client && ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}  
-            # // this should be implemented dynamically in the future
+        run:
+          cd src/client && ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+          # // this should be implemented dynamically in the future
       - name: Creating .env  🔑
         run: |
           touch .env.production

@@ -1,7 +1,7 @@
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import path from 'path';
 import 'reflect-metadata';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
@@ -31,7 +31,7 @@ export class BaseService {
     try {
       switch (process.env.NODE_ENV) {
         case 'production':
-          return this.#getParsedDotEnvFile('.env.production');
+          return this.#getParsedDotEnvFile('.env');
         case 'development':
           return this.#getParsedDotEnvFile('.env.development');
         case 'test':
