@@ -76,21 +76,21 @@ jobs:
             # // this should be implemented dynamically in the future
       - name: Creating .env  🔑
         run: |
-          touch src/client/.env.production
-          echo JWT_SECRET="secret" >> src/client/.env.production
-          echo JWT_EXPIRES_IN="10d" >> src/client/.env.production
-          echo DB_CONNECTION_ALIVE="true" >> src/client/.env.production
-          echo TYPEORM_ENTITIES=" src/server/entities/**/*.ts" >> src/client/.env.production
-          echo TYPEORM_MIGRATIONS=" src/server/migrations/*-*.*ts" >> src/client/.env.production
-          echo TYPEORM_USERNAME="postgres" >> src/client/.env.production
-          echo TYPEORM_PASSWORD="postgres" >> src/client/.env.production
-          echo TYPEORM_PORT="5432" >> src/client/.env.production
-          echo TYPEORM_HOST="localhost" >> src/client/.env.production
-          echo TYPEORM_DATABASE="test" >> src/client/.env.production
-          echo DATABASE_URL="postgres://postgres:postgres@localhost:5432/test" >> src/client/.env.production
-          echo NODE_ENV="development" >> src/client/.env.production
-          echo BACKEND_PORT="8080" >> src/client/.env.production
-          cat src/client/.env.production
+          touch /.env.production
+          echo JWT_SECRET="secret" >> /.env.production
+          echo JWT_EXPIRES_IN="10d" >> /.env.production
+          echo DB_CONNECTION_ALIVE="true" >> /.env.production
+          echo TYPEORM_ENTITIES=" src/server/entities/**/*.ts" >> /.env.production
+          echo TYPEORM_MIGRATIONS=" src/server/migrations/*-*.*ts" >> /.env.production
+          echo TYPEORM_USERNAME="postgres" >> /.env.production
+          echo TYPEORM_PASSWORD="postgres" >> /.env.production
+          echo TYPEORM_PORT="5432" >> /.env.production
+          echo TYPEORM_HOST="localhost" >> /.env.production
+          echo TYPEORM_DATABASE="test" >> /.env.production
+          echo DATABASE_URL="postgres://postgres:postgres@localhost:5432/test" >> /.env.production
+          echo NODE_ENV="development" >> /.env.production
+          echo BACKEND_PORT="8080" >> /.env.production
+          cat /.env.production
       - name: Build with Next.js 👨‍🔧
         run: cd src/client && ${{ steps.detect-package-manager.outputs.runner }} build
       - name: Deploy 🚀
