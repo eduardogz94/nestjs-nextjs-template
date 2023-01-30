@@ -27,25 +27,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # // this should be implemented dynamically in the future
-      - name: Creating .env  🔑
+      - name: Creating .env.production  🔑
         run: |
           touch .env.production
-          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
-          echo API_KEY=${{ secrets.API_KEY }} >> .env
-          echo JWT_SECRET="secret" >> .env
-          echo JWT_EXPIRES_IN="10d" >> .env
-          echo DB_CONNECTION_ALIVE="true" >> .env
-          echo TYPEORM_ENTITIES=" src/server/entities/**/*.ts" >> .env
-          echo TYPEORM_MIGRATIONS=" src/server/migrations/*-*.*ts" >> .env
-          echo TYPEORM_USERNAME="postgres" >> .env
-          echo TYPEORM_PASSWORD="postgres" >> .env
-          echo TYPEORM_PORT="5432" >> .env
-          echo TYPEORM_HOST="localhost" >> .env
-          echo TYPEORM_DATABASE="test" >> .env
-          echo DATABASE_URL="postgres://postgres:postgres@localhost:5432/test" >> .env
-          echo NODE_ENV="development" >> .env
-          echo BACKEND_PORT="8080" >> .env
-          cat .env
+          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env.production
+          echo API_KEY=${{ secrets.API_KEY }} >> .env.production
+          echo JWT_SECRET="secret" >> .env.production
+          echo JWT_EXPIRES_IN="10d" >> .env.production
+          echo DB_CONNECTION_ALIVE="true" >> .env.production
+          echo TYPEORM_ENTITIES=" src/server/entities/**/*.ts" >> .env.production
+          echo TYPEORM_MIGRATIONS=" src/server/migrations/*-*.*ts" >> .env.production
+          echo TYPEORM_USERNAME="postgres" >> .env.production
+          echo TYPEORM_PASSWORD="postgres" >> .env.production
+          echo TYPEORM_PORT="5432" >> .env.production
+          echo TYPEORM_HOST="localhost" >> .env.production
+          echo TYPEORM_DATABASE="test" >> .env.production
+          echo DATABASE_URL="postgres://postgres:postgres@localhost:5432/test" >> .env.production
+          echo NODE_ENV="development" >> .env.production
+          echo BACKEND_PORT="8080" >> .env.production
+          cat .env.production
       - name: Checkout 🛎️
         uses: actions/checkout@main
         with:
