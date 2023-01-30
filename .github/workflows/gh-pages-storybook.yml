@@ -1,10 +1,13 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches:
+      - main
+    paths:
+      - 'src/client/stories/**'
+      - 'src/client/components/**'
+      - 'src/client/pages/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,26 +20,26 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: true
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
+  deploy-static-storybook:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Setup Pages
+      - name: Setup Pages 🔧
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
           path: './src/client/docs'
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages 🚀
         id: deployment
         uses: actions/deploy-pages@v1

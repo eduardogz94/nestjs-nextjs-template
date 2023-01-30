@@ -44,7 +44,7 @@ const useContextStore = (): IContextStore => {
 
   return {
     storage: store,
-    get: function (key: keyof IStorageData) {
+    get(key: keyof IStorageData) {
       return this.storage?.[key];
     },
     set(key: keyof IStorageData, data: unknown) {

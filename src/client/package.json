@@ -12,7 +12,6 @@
     "dev": "next dev",
     "prebuild": "npx rimraf .next",
     "build": "next build",
-    "build:tailwind": "tailwindcss -i pages/globals.css -o .next/server/styles/globals.css ",
     "lint": "next lint",
     "prettier": "prettier --write .",
     "storybook": "start-storybook -p 6006",
