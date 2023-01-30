@@ -29,12 +29,20 @@ jobs:
       # // this should be implemented dynamically in the future
       - name: Creating .env  🔑
         run: |
-          keys=(JWT_SECRET JWT_EXPIRES_IN DB_CONNECTION_ALIVE TYPEORM_ENTITIES TYPEORM_MIGRATIONS TYPEORM_USERNAME TYPEORM_PASSWORD TYPEORM_PORT TYPEORM_HOST TYPEORM_DATABASE DATABASE_URL NODE_ENV BACKEND_PORT)
-          values=("token_test" "1d" "true" "src/server/entity/**/*.ts" "src/server/migration/**/*.ts" "postgres" "postgres" "5432" "localhost" "postgres" "postgres://postgres:postgres@localhost:5432/postgres" "production" "3000")
           touch src/client/.env.production
-          for i in ${{ keys[@] }}; do
-            echo "$i=${values[$i]}" >> src/client/.env.production
-          done
+          echo JWT_SECRET="secret" >> src/client/.env.production
+          echo JWT_EXPIRES_IN="10d" >> src/client/.env.production
+          echo DB_CONNECTION_ALIVE="true" >> src/client/.env.production
+          echo TYPEORM_ENTITIES=" src/server/entities/**/*.ts" >> src/client/.env.production
+          echo TYPEORM_MIGRATIONS=" src/server/migrations/*-*.*ts" >> src/client/.env.production
+          echo TYPEORM_USERNAME="postgres" >> src/client/.env.production
+          echo TYPEORM_PASSWORD="postgres" >> src/client/.env.production
+          echo TYPEORM_PORT="5432" >> src/client/.env.production
+          echo TYPEORM_HOST="localhost" >> src/client/.env.production
+          echo TYPEORM_DATABASE="test" >> src/client/.env.production
+          echo DATABASE_URL="postgres://postgres:postgres@localhost:5432/test" >> src/client/.env.production
+          echo NODE_ENV="development" >> src/client/.env.production
+          echo BACKEND_PORT="8080" >> src/client/.env.production
           cat src/client/.env.production
       - name: Checkout 🛎️
         uses: actions/checkout@main
