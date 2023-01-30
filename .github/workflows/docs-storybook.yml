@@ -28,7 +28,6 @@ jobs:
       name: production
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 target evn ${ { vars.NODE_ENV} }"
       - name: Checkout 🛎️
         uses: actions/checkout@main
         with:
