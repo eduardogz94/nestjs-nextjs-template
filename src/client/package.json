@@ -10,7 +10,7 @@
   "scripts": {
     "start": "next start",
     "dev": "next dev",
-    "prebuild": "rimraf .next",
+    "prebuild": "npx rimraf .next",
     "build": "next build",
     "build:tailwind": "tailwindcss -i pages/globals.css -o .next/server/styles/globals.css ",
     "lint": "next lint",
