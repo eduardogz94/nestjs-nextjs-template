@@ -1,4 +1,20 @@
 name: Build and Deploy Storybook
+
+env:
+  JWT_SECRET: ${{secrets.JWT_SECRET}}
+  JWT_EXPIRES_IN: 1d
+  DB_CONNECTION_ALIVE: true
+  TYPEORM_ENTITIES: src/server/entity/**/*.ts
+  TYPEORM_MIGRATIONS: src/server/migration/**/*.ts
+  TYPEORM_USERNAME: ${{secrets.TYPEORM_USERNAME}}
+  TYPEORM_PASSWORD: ${{secrets.TYPEORM_PASSWORD}}
+  TYPEORM_PORT: 5432
+  TYPEORM_HOST: localhost
+  TYPEORM_DATABASE: postgres
+  DATABASE_URL: ${{secrets.DATABASE_URL}}
+  NODE_ENV: production
+  BACKEND_PORT: 3000
+  
 on:
   push:
     branches:
