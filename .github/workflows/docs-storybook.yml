@@ -24,8 +24,13 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    environment:
+      name: ${ { inputs.target-env } }
     runs-on: ubuntu-latest
     steps:
+      - run: echo "🎉 target evn ${ { inputs.target-env} }"
+      - run: echo "🎉 target evn inputs.target-env"
+      
       - name: Checkout 🛎️
         uses: actions/checkout@main
         with:
