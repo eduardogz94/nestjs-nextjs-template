@@ -23,4 +23,5 @@ jobs:
         with:
           sonarcloud_token: ${{ secrets.SONARCLOUD_TOKEN }}
         env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
