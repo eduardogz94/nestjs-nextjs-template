@@ -1,95 +1,10 @@
 "use client";
-/* eslint-disable no-unused-vars */
-import { cloneDeep } from "lodash";
-import React, { createContext, useContext, useReducer } from "react";
-import { STORAGES, STORAGES_AVAILABLES } from "./constants";
 
-type IStorageData = Record<string, unknown>;
-
-interface IContextStore {
-  storage: IStorageData;
-  get: (key: keyof IStorageData) => IStorageData[keyof IStorageData];
-  set: (
-    key: keyof IStorageData,
-    data: unknown
-  ) => IStorageData[keyof IStorageData];
-  intervalResetter(key: string, time?: number, cb?: () => void): NodeJS.Timeout;
-}
-
-enum STORAGE_ACTIONS {
-  SET = "SET",
-  CLEAR = "CLEAR",
-}
-
-const storageReducer = (
-  state: IStorageData,
-  action: { key: keyof IStorageData; data: any; type: STORAGE_ACTIONS }
-) => {
-  switch (action.type) {
-    case STORAGE_ACTIONS.SET:
-      var _state = cloneDeep(state);
-      _state[action.key] = action.data;
-      return _state;
-    case STORAGE_ACTIONS.CLEAR:
-      var _state = cloneDeep(state);
-      _state[action.key] = null;
-      return _state;
-    default:
-      return state;
-  }
-};
-
-const useContextStore = (): IContextStore => {
-  const [store, dispatch] = useReducer(storageReducer, {});
-
-  return {
-    storage: store,
-    get(key: keyof IStorageData) {
-      return this.storage?.[key];
-    },
-    set(key: keyof IStorageData, data: unknown) {
-      dispatch({ key, data, type: STORAGE_ACTIONS.SET });
-      return this.storage[key];
-    },
-    intervalResetter(key: string, time = 3600000, cb = () => {}) {
-      const interval = setInterval(() => {
-        cb();
-        dispatch({
-          key,
-          data: null,
-          type: STORAGE_ACTIONS.CLEAR,
-        });
-      }, time);
-
-      return interval;
-    },
-  };
-};
-
-interface ILocalStorageStore {
-  get: (key: string) => string | null;
-  set: (key: string, data: any) => string | null;
-}
-
-const useLocalStorageStore = (): ILocalStorageStore => {
-  return {
-    get(key) {
-      return localStorage.getItem(key);
-    },
-    set(key, data) {
-      localStorage.setItem(key, JSON.stringify(data));
-      return localStorage.getItem(key);
-    },
-  };
-};
-
-interface IStorageContext {
-  [key: string]: IContextStore | ILocalStorageStore;
-}
-
-interface IStorageProviderProps {
-  children: React.ReactNode;
-}
+import { createContext, useContext, useMemo } from "react";
+import { useCache } from "./storage";
+import { STORAGES_AVAILABLES } from "./storage/constants";
+import { IStorageContext, IStorageProviderProps } from "./storage/interfaces";
+import { useLocalStorage } from "./storage/LocalStorage/LocalStorage";
 
 const StorageContext = createContext<IStorageContext>(
   STORAGES_AVAILABLES.reduce(
@@ -101,10 +16,31 @@ const StorageContext = createContext<IStorageContext>(
 export const useStorage = (type: string) => useContext(StorageContext)[type];
 
 const StorageProvider = ({ children }: IStorageProviderProps) => {
-  const value: IStorageContext = {
-    [STORAGES.context.type]: useContextStore(),
-    [STORAGES.localStorage.type]: useLocalStorageStore(),
-  };
+  const contextStorage = useCache();
+  const localStorage = useLocalStorage();
+
+  // filtering the storages in the useMemo's dependency array
+  const storages = useMemo(
+    () =>
+      [contextStorage, localStorage].filter((storage) =>
+        STORAGES_AVAILABLES.includes(storage.type)
+      ),
+    [contextStorage, localStorage]
+  );
+
+  // Returning value dynamically based on "enabled" property in the storages
+  const value: IStorageContext = useMemo(() => {
+    return storages.reduce((prev, current) => {
+      if (STORAGES_AVAILABLES.includes(current.type)) {
+        const { type, ...rest } = current;
+        return {
+          ...prev,
+          [type]: rest,
+        };
+      }
+      return prev;
+    }, {});
+  }, [storages]);
 
   return (
     <StorageContext.Provider value={value}>{children}</StorageContext.Provider>
