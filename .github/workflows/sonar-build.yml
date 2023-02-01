@@ -22,7 +22,7 @@ jobs:
       - name: Test and coverage
         run: cd src/client && yarn jest --coverage
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v3
+        uses: SonarSource/sonarcloud-github-action@v2
         with:
           sonarcloud_token: ${{ secrets.SONARCLOUD_TOKEN }}
         env:
