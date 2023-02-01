@@ -67,7 +67,6 @@ export const useLocalStorage = (): any => {
         if (this.get(key).data !== null) {
           this.remove(key);
           cb();
-          return;
         }
       }, time);
     },

@@ -71,7 +71,6 @@ export default class CacheModule {
           type: CacheModuleActions.REMOVE,
         });
         cb();
-        return;
       }
     }, time);
   }
