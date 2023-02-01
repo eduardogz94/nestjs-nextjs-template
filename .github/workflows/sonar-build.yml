@@ -10,15 +10,17 @@ jobs:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Install dependencies
-        run: cd src/client && yarn
+        run: cd src/client && yarn install
       - name: Test and coverage
         run: cd src/client && yarn jest --coverage
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v3
+        with:
+          sonarcloud_token: ${{ secrets.SONARCLOUD_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
