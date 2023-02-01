@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import { z } from 'zod';
 import { BaseService } from './base.service.mjs';
 
 export default class ClientEnvService extends BaseService {
@@ -13,6 +13,8 @@ export default class ClientEnvService extends BaseService {
   }
 
   #getEnvSchema() {
-    return Joi.object({}).options({ stripUnknown: true });
+    return z.object({
+      NEXT_PUBLIC_BACKEND_PORT: z.string(),
+    });
   }
 }

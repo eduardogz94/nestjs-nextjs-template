@@ -13,6 +13,7 @@ export class BaseService {
   constructor(type) {
     this.type = type;
     this.environment = this.#getEnvironmentFile();
+    console.log(this.environment);
   }
 
   #getParsedDotEnvFile = (path) => {
@@ -21,7 +22,7 @@ export class BaseService {
     });
 
     if (error) {
-      throw new Error(`❌ Error parsing .env file: /${path}`);
+      throw new Error(`❌ Error parsing file: /${path}`);
     }
 
     return parsed;
@@ -47,26 +48,18 @@ export class BaseService {
   }
 
   validateEnv(config, schema) {
-    const { value, error } = schema.validate(config);
-    let validatedSchema = value;
+    try {
+      const validatedSchema = schema.parse(config);
+      console.log(
+        '\x1b[96m%s\x1b[0m',
+        `✅ Valid environment ${this.type} variables`,
+      );
 
-    if (value === undefined && !error) {
-      validatedSchema = schema.validate(process.env).value;
-    }
-
-    if (error) {
+      return validatedSchema;
+    } catch (error) {
       throw new Error(
-        `❌ Invalid environment ${this.type} variables: ${
-          error ? error.message : 'No environment file found'
-        }`,
+        `❌ Invalid environment ${this.type} variables: ${error.message}`,
       );
     }
-
-    console.log(
-      '\x1b[96m%s\x1b[0m',
-      `✅ Valid environment ${this.type} variables`,
-    );
-
-    return validatedSchema;
   }
 }
