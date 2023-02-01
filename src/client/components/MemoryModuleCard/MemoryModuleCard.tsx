@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 
 export interface IMemoryCard {
   title: string;
-  module?: CacheModule;
+  module: CacheModule | any;
   onRemove: (_key: string) => void;
 }
 

@@ -1,4 +1,4 @@
-import { Console, Command, createSpinner } from 'nestjs-console';
+import { Command, Console, createSpinner } from 'nestjs-console';
 
 @Console()
 export class SeedService {
@@ -10,9 +10,6 @@ export class SeedService {
     const spin = createSpinner();
 
     spin.start('Seeding the DB');
-
-    // await this.seedThings();
-
     spin.succeed('Seeding done');
   }
 }

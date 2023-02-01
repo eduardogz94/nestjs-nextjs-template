@@ -31,9 +31,6 @@ export class ViewController {
 
   @Get('_next*')
   public async assets(@Req() req: Request, @Res() res: Response) {
-    const parsedUrl = parse(req.url, true);
-    await this.viewService
-      .getNextServer()
-      .render(req, res, parsedUrl.pathname, parsedUrl.query);
+    return await this.handler(req, res);
   }
 }
