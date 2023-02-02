@@ -13,7 +13,6 @@ export class BaseService {
   constructor(type) {
     this.type = type;
     this.environment = this.#getEnvironmentFile();
-    console.log(this.environment);
   }
 
   #getParsedDotEnvFile = (path) => {
