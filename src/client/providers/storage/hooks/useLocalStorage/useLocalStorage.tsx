@@ -1,12 +1,11 @@
 import { CACHE_STORAGES_ENUM } from "../../constants";
 import { ICacheData } from "../../interfaces";
 
-
 // TODO {WIP} also should handle cookies and session storage
 export const useLocalStorage = (): any => {
   return {
     type: CACHE_STORAGES_ENUM.local,
-    storage: global?.localStorage,
+    storage: global.localStorage,
     get(key: keyof ICacheData) {
       const data = this.storage.getItem(key);
       try {
@@ -25,13 +24,13 @@ export const useLocalStorage = (): any => {
     set(key: keyof ICacheData, data: any) {
       if (typeof data === "object") {
         const dataToSave = JSON.stringify(data);
-        this.storage?.setItem(key, dataToSave);
+        this.storage.setItem(key, dataToSave);
         return {
           data: this.get(key).data,
           type: "object",
         };
       } else {
-        this.storage?.setItem(key, data);
+        this.storage.setItem(key, data);
         return {
           data: this.get(key).data,
           type: "string",
@@ -45,7 +44,7 @@ export const useLocalStorage = (): any => {
           data: undefined,
         };
 
-      this.storage?.removeItem(key);
+      this.storage.removeItem(key);
       return {
         removed: true,
         data: this.get(key).data,
@@ -53,16 +52,16 @@ export const useLocalStorage = (): any => {
     },
     clear() {
       if (this.length() === 0) return { cleared: false, storage: this.storage };
-      this.storage?.clear();
+      this.storage.clear();
       return { cleared: true, storage: this.storage };
     },
     key(index: number) {
-      return this.storage?.key(index);
+      return this.storage.key(index);
     },
     length() {
-      return this.storage?.length;
+      return this.storage.length;
     },
-    setExpirationTimer(key: keyof ICacheData, time = 3600000, cb = () => {}) {
+    setExpirationTimer(key: keyof ICacheData, time = 1000, cb = () => {}) {
       return setTimeout(() => {
         if (this.get(key).data !== null) {
           this.remove(key);

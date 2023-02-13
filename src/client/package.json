@@ -18,7 +18,7 @@
     "build-storybook": "build-storybook -o docs",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:debug": "node --trace-deprecation --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "clean-modules": "npx rimraf node_modules && npx rimraf package-lock.json && yarn cache clean --force && yarn install"
   },
   "devDependencies": {

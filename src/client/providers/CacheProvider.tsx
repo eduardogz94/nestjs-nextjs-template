@@ -1,9 +1,7 @@
-"use client";
+import React, { createContext, useContext, useMemo } from "react";
 
-import { createContext, useContext, useMemo } from "react";
-
-import { useContextStorage, useLocalStorage } from "./storage/hooks";
 import { CACHE_PROVIDERS_ENABLED } from "./storage/constants";
+import { useContextStorage, useLocalStorage } from "./storage/hooks";
 import { ICacheContext, ICacheProviderProps } from "./storage/interfaces";
 
 const CacheContext = createContext<ICacheContext>(
@@ -22,23 +20,20 @@ const CacheProvider = ({ children }: ICacheProviderProps) => {
 
   const storages = useMemo(
     () =>
-      [contextStorage, localStorage].filter((storage) =>
-        CACHE_PROVIDERS_ENABLED.includes(storage.type)
-      ),
+      [contextStorage, localStorage].filter((storage) => {
+        return CACHE_PROVIDERS_ENABLED.includes(storage.type);
+      }),
     [contextStorage, localStorage]
   );
 
   // Returning value dynamically based on "enabled" property in the storages
   const cache: ICacheContext = useMemo(() => {
     return storages.reduce((prev, current) => {
-      if (CACHE_PROVIDERS_ENABLED.includes(current.type)) {
-        const { type, ...rest } = current;
-        return {
-          ...prev,
-          [type]: rest,
-        };
-      }
-      return prev;
+      const { type, ...rest } = current;
+      return {
+        ...prev,
+        [type]: rest,
+      };
     }, {});
   }, [storages]);
 
