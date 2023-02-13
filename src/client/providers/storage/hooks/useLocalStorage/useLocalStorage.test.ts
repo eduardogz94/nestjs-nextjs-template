@@ -21,7 +21,7 @@ const setUpLocalStorageMock = (): any => {
 const key = "key";
 const data = "data";
 
-describe.only("useLocalStorage", () => {
+describe("useLocalStorage", () => {
   let localStorageMock: any;
   beforeEach(() => {
     localStorageMock = setUpLocalStorageMock();
