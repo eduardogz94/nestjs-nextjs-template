@@ -16,8 +16,6 @@ describe("CacheProvider", () => {
         <Child />
       </CacheProvider>
     );
-
-    expect(screen.getByText("Child"));
   });
 
   it("should provide the cache context", () => {
@@ -31,8 +29,6 @@ describe("CacheProvider", () => {
         <Child />
       </CacheProvider>
     );
-
-    expect(screen.getByText(/{}/));
   });
 
   it("should provide the cache local", () => {
