@@ -1,42 +1,67 @@
 import { isEqual } from "lodash";
-import type { Dispatch } from "react";
 
-import { CacheModuleActions } from "../constants";
 import { ICacheData } from "../interfaces";
 
-import { cacheReducer, ICacheReducer } from "./CacheModule.utils";
+const DEFAULT_TIMER = 3600000; // 1 hour
 
-export default class CacheModule {
-  keys: any;
-  dispatch: Dispatch<ICacheReducer>;
-  module: string;
+export interface ICacheModule {
+  modules: Map<keyof ICacheData, Map<keyof ICacheData, CacheModule> | any>;
+  module: keyof ICacheData;
+  timers: Map<keyof ICacheData, ReturnType<typeof setTimeout>>;
+}
 
-  constructor(keys: ICacheData, module: keyof ICacheData = "") {
-    this.keys = keys;
+export default class CacheModule implements ICacheModule {
+  modules: ICacheModule["modules"];
+  module: ICacheModule["module"] = "";
+  timers: ICacheModule["timers"];
+
+  constructor(
+    modules: ICacheModule["modules"],
+    module: ICacheModule["module"] = ""
+  ) {
+    if (!(modules instanceof Map)) {
+      throw new Error("modules should be an instance of Map");
+    }
+
+    this.modules = modules;
     this.module = module;
-    this.dispatch = (action: ICacheReducer) => cacheReducer(this.keys, action);
+    this.timers = new Map();
   }
 
-  createModule(key: keyof ICacheData) {
-    const newModule = new CacheModule({}, key);
-    this.dispatch({
-      key,
-      type: CacheModuleActions.SET,
-      value: newModule,
-    });
-    return newModule;
-  }
   getKey(key: keyof ICacheData) {
-    return this.keys?.[key];
+    if (this.modules.size < 1) {
+      return null;
+    }
+    return this.modules.get(key);
   }
 
-  setKey(key: keyof ICacheData, value: any) {
+  setKey(
+    key: keyof ICacheData,
+    data: any,
+    expirationTime?: number,
+    expirationCb?: () => void
+  ) {
+    if (!data) {
+      return new Error("Data is required");
+    }
+
     const existingData = this.getKey(key);
-    if (isEqual(existingData, value)) {
+    if (isEqual(existingData, data)) {
       return existingData;
     }
 
-    this.dispatch({ key, type: CacheModuleActions.SET, value });
+    const timerKey = this.timers.get(key);
+    if (timerKey) {
+      clearTimeout(timerKey);
+      this.timers.delete(key);
+    }
+
+    this.modules.set(key, data);
+
+    if (expirationTime) {
+      this.setExpirationTimer(key, expirationTime, expirationCb);
+    }
+
     return this.getKey(key);
   }
 
@@ -45,33 +70,40 @@ export default class CacheModule {
       return null;
     }
 
-    this.dispatch({
-      key,
-      type: CacheModuleActions.REMOVE,
-    });
+    const timerKey = this.timers.get(key);
+    if (timerKey) {
+      clearTimeout(timerKey);
+      this.timers.delete(key);
+    }
+
+    this.modules.delete(key);
     return this.getKey(key);
   }
 
   clear() {
-    if (Object.keys(this.keys).length > 0) {
-      this.dispatch({
-        key: "",
-        type: CacheModuleActions.CLEAR,
-      });
+    this.timers.forEach((timer) => clearTimeout(timer));
+    this.timers.clear();
+
+    if (this.modules.size < 1) {
+      return new Error("No modules found");
     }
 
-    return this.keys;
+    this.modules.clear();
+    return this.modules;
   }
 
-  setExpirationTimer(key: keyof ICacheData, time = 3600000, cb = () => {}) {
-    return setTimeout(() => {
+  setExpirationTimer(
+    key: keyof ICacheData,
+    time = DEFAULT_TIMER,
+    cb = () => {}
+  ) {
+    const timer = setTimeout(() => {
       if (this.getKey(key) !== null) {
-        this.dispatch({
-          key,
-          type: CacheModuleActions.REMOVE,
-        });
+        this.removeKey(key);
         cb();
       }
     }, time);
+
+    this.timers.set(key, timer);
   }
 }

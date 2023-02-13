@@ -1,22 +1,13 @@
 import type { NextPage } from "next";
 
-import { useStorage } from "providers/StorageProvider";
-import { CacheStorageTypes } from "providers/storage/constants";
-import { useEffect, useState } from "react";
+import { useCache } from "providers/CacheProvider";
+import { CACHE_STORAGES_ENUM } from "providers/storage/constants";
+import { useState } from "react";
 import MemoryModuleCard from "components/MemoryModuleCard/MemoryModuleCard";
 
 const Home: NextPage = () => {
-  const memory = useStorage(CacheStorageTypes.context);
+  const memory = useCache(CACHE_STORAGES_ENUM.context);
   const [newModuleKey, setNewModuleKey] = useState("");
-
-  useEffect(() => {
-    console.log(memory);
-    console.log(memory.getModules());
-    // memory
-    //   .getModule(newModuleKey)
-    //   ?.setExpirationTimer("test", 1000) as NodeJS.Timeout;
-  }, [memory]);
-
   return (
     <>
       <main className="justify-top flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] pt-8">
@@ -37,8 +28,7 @@ const Home: NextPage = () => {
             className="rounded-lg bg-[hsl(280,100%,70%)] px-4 py-2 text-lg font-semibold text-white shadow-lg hover:bg-[hsl(280,100%,60%)]"
             onClick={() => {
               if (newModuleKey.length > 1) {
-                memory.setModule(newModuleKey);
-                setNewModuleKey("");
+                memory.createCacheModule(newModuleKey);
               }
             }}
           >
@@ -46,27 +36,28 @@ const Home: NextPage = () => {
           </button>
           <button
             className="rounded-lg bg-[hsl(280,100%,70%)] px-4 py-2 text-lg font-semibold text-white shadow-lg hover:bg-[hsl(280,100%,60%)]"
-            onClick={() => memory.clearModules()}
+            onClick={() => memory.clearCacheModules()}
           >
             Clear Modules
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          {Object.keys(memory.getModules()).map((key) => (
-            <MemoryModuleCard
-              key={key}
-              title={key}
-              module={memory.getModule(key)}
-              onRemove={() => memory.removeModule(key)}
-            />
-          ))}
+        <div className="grid grid-cols-2 gap-3">
+          {Array.from(memory.getModules().entries()).map(
+            ([key, module]: any) => (
+              <MemoryModuleCard
+                key={key}
+                module={module}
+                onRemove={() => memory.deleteCacheModule(key)}
+              />
+            )
+          )}
         </div>
       </main>
     </>
   );
 };
 
-Home.getInitialProps = ({ query }) => {
+Home.getInitialProps = ({ query }: { query: any }) => {
   return {
     data: `some initial props including query params and controller data: ${JSON.stringify(
       query

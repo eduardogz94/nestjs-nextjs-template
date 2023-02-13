@@ -1,11 +1,11 @@
-import { useCacheType } from "./useCache/useCache";
+import { useContextStorageType } from "./hooks/useContextStorage";
 
 export type ICacheData = Record<string, unknown>;
 
-export type IStorageContext = {
-  [key: string]: useCacheType;
+export type ICacheContext = {
+  [key: string]: useContextStorageType;
 };
 
-export type IStorageProviderProps = {
+export type ICacheProviderProps = {
   children: React.ReactNode;
 };

@@ -1,26 +1,20 @@
 /* eslint-disable no-unused-vars */
-export enum CacheStorageTypes {
+export enum CACHE_STORAGES_ENUM {
   local = "local",
   context = "memory",
 }
 
-export enum CacheModuleActions {
-  SET = "SET",
-  CLEAR = "CLEAR",
-  REMOVE = "REMOVE",
-}
-
-export const STORAGES_DATA = {
+export const CACHE_STORAGES = {
   localStorage: {
-    type: CacheStorageTypes.local,
+    type: CACHE_STORAGES_ENUM.local,
     enabled: false,
   },
   context: {
-    type: CacheStorageTypes.context,
+    type: CACHE_STORAGES_ENUM.context,
     enabled: true,
   },
 };
 
-export const STORAGES_AVAILABLES = Object.values(STORAGES_DATA)
-  .filter((storage) => storage.enabled)
-  .map((storage) => storage.type);
+export const CACHE_PROVIDERS_ENABLED = Object.values(CACHE_STORAGES)
+  .filter((cache) => cache.enabled)
+  .map((cache) => cache.type);

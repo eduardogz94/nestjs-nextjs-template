@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { NextPageWithLayout } from "./page";
 
-import StorageProvider from "providers/StorageProvider";
+import CacheProvider from "providers/CacheProvider";
 import "./globals.css";
 
 interface Props extends AppProps {
@@ -13,7 +13,7 @@ const MyApp: React.FC<Props> = ({ Component, pageProps }) => {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page: any) => page);
   return (
-    <StorageProvider>{getLayout(<Component {...pageProps} />)}</StorageProvider>
+    <CacheProvider>{getLayout(<Component {...pageProps} />)}</CacheProvider>
   );
 };
 
