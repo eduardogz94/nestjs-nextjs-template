@@ -1,11 +1,11 @@
-import { BaseStorage } from "../BaseStorage";
-import { CacheStorageTypes } from "../constants";
-import { ICacheData } from "../interfaces";
+import { CACHE_STORAGES_ENUM } from "../../constants";
+import { ICacheData } from "../../interfaces";
 
+
+// TODO {WIP} also should handle cookies and session storage
 export const useLocalStorage = (): any => {
   return {
-    ...BaseStorage,
-    type: CacheStorageTypes.local,
+    type: CACHE_STORAGES_ENUM.local,
     storage: global?.localStorage,
     get(key: keyof ICacheData) {
       const data = this.storage.getItem(key);
