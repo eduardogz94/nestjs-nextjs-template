@@ -408,3 +408,5 @@ cypress/screenshots
 
 src/client/next
 src/client/next-env.d.ts
+src/client/yarn.lock
+src/client/package-lock.json
