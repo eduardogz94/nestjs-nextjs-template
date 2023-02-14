@@ -22,7 +22,6 @@
     "clean-modules": "npx rimraf node_modules && npx rimraf package-lock.json && yarn cache clean --force && yarn install"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",
@@ -32,6 +31,7 @@
     "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/react": "^6.5.16",
     "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.4.0",
@@ -40,7 +40,6 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "autoprefixer": "^10.4.7",
-    "babel-loader": "^9.1.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.31.0",
     "eslint-config-next": "12.1.4",

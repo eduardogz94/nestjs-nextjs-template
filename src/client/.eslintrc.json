@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "testing-library"],
   "extends": ["plugin:storybook/recommended", "next", "next/core-web-vitals"],
   "root": true,
   "env": {
