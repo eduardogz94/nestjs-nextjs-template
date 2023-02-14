@@ -61,6 +61,7 @@ export const useLocalStorage = (): any => {
     length() {
       return this.storage.length;
     },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     setExpirationTimer(key: keyof ICacheData, time = 1000, cb = () => {}) {
       return setTimeout(() => {
         if (this.get(key).data !== null) {

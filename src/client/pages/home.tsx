@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 
-import { useCache } from "providers/CacheProvider";
-import { CACHE_STORAGES_ENUM } from "providers/storage/constants";
+import { useCache } from "../providers/CacheProvider";
+import { CACHE_STORAGES_ENUM } from "../providers/storage/constants";
 import { useState } from "react";
-import MemoryModuleCard from "components/MemoryModuleCard/MemoryModuleCard";
+import MemoryModuleCard from "../components/organism/MemoryModuleCard/MemoryModuleCard";
 
 const Home: NextPage = () => {
   const memory = useCache(CACHE_STORAGES_ENUM.context);
@@ -42,22 +42,20 @@ const Home: NextPage = () => {
           </button>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          {Array.from(memory.getModules().entries()).map(
-            ([key, module]: any) => (
-              <MemoryModuleCard
-                key={key}
-                module={module}
-                onRemove={() => memory.deleteCacheModule(key)}
-              />
-            )
-          )}
+          {Array.from(memory.getModules().entries()).map(([key, module]) => (
+            <MemoryModuleCard
+              key={key}
+              module={module}
+              onRemove={() => memory.deleteCacheModule(key)}
+            />
+          ))}
         </div>
       </main>
     </>
   );
 };
 
-Home.getInitialProps = ({ query }: { query: any }) => {
+Home.getInitialProps = ({ query }: { query: unknown }) => {
   return {
     data: `some initial props including query params and controller data: ${JSON.stringify(
       query

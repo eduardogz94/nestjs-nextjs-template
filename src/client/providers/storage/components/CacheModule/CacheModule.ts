@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 
-import { ICacheData } from "../interfaces";
+import { ICacheData } from "../../interfaces";
 
 const DEFAULT_TIMER = 3600000; // 1 hour
 
@@ -95,6 +95,7 @@ export default class CacheModule implements ICacheModule {
   setExpirationTimer(
     key: keyof ICacheData,
     time = DEFAULT_TIMER,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     cb = () => {}
   ) {
     const timer = setTimeout(() => {

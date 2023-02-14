@@ -1,7 +1,8 @@
-import CacheModule from "providers/storage/CacheModule/CacheModule";
+import CacheModule from "../../../providers/storage/components/CacheModule";
 import { useState } from "react";
 
 export interface IMemoryCard {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   module: CacheModule | any;
   onRemove: () => void;
 }
@@ -55,8 +56,7 @@ const MemoryModuleCard: React.FC<IMemoryCard> = ({ module, onRemove }) => {
           <button
             className="mr-2 w-full rounded-lg bg-[hsl(280,100%,70%)] px-4 py-2 font-bold text-white hover:bg-indigo-600"
             onClick={() => {
-              const data = module?.clear();
-              console.log(data);
+              module?.clear();
             }}
           >
             Clear Module Cache

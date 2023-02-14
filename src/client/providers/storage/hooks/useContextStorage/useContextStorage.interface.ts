@@ -1,7 +1,7 @@
 import { ICacheData } from "../../interfaces";
 
-import CacheModule from "../../CacheModule";
-import { CACHE_STORAGES_ENUM } from "providers/storage/constants";
+import CacheModule from "../../components/CacheModule";
+import { CACHE_STORAGES_ENUM } from "../../constants";
 
 export type useContextStorageType = {
   type: typeof CACHE_STORAGES_ENUM.context;

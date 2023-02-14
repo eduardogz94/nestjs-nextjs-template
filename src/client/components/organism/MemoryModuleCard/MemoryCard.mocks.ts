@@ -1,7 +1,7 @@
 import { IMemoryCard } from "./MemoryModuleCard";
 
 const base: IMemoryCard = {
-  module: {} as any,
+  module: {},
   onRemove: function (): void {
     throw new Error("Function not implemented.");
   },

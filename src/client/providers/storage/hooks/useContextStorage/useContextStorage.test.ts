@@ -1,4 +1,3 @@
-// @ts-ignore
 import { renderHook, act } from "@testing-library/react-hooks";
 import useContextStorage from "./useContextStorage";
 import { CACHE_STORAGES_ENUM } from "../../constants";
