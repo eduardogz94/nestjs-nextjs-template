@@ -413,3 +413,6 @@ src/client/yarn.lock
 src/client/package-lock.json
 
 src/server/coverage
+src/server/node_modules
+
+src/server/env
