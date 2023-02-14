@@ -1,8 +1,8 @@
-import { Strategy } from 'passport-jwt';
-import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { SESSION_COOKIE_KEY } from 'src/config/constants';
+import { PassportStrategy } from '@nestjs/passport';
+import { Strategy } from 'passport-jwt';
+import { SESSION_COOKIE_KEY } from '../../../../config/constants';
 
 export type JwtPayload = { sub: number; username: string };
 

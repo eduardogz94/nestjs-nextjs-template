@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "declaration": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "code",
+    "../env/",
+    "../common",
+    "migration/",
+    "console/",
+    "main.ts",
+    "ormconfig.ts",
+    "config/*.ts",
+    "commitlint.config.js"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./client",
+    "./dist",
+    "./test",
+    "./coverage",
+    "./.vscode",
+    "./.git"
+  ]
+}

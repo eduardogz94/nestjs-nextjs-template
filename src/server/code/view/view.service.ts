@@ -10,15 +10,16 @@ export class ViewService implements OnModuleInit {
 
   constructor(
     private configService: ConfigService,
+
     private loggerService: LoggerService,
   ) {}
 
   async onModuleInit(): Promise<void> {
-    this.loggerService.debug('Initializing Next.js server...');
+    this.loggerService.log('Initializing Next.js server...');
     try {
       this.server = createServer({
         dev: this.configService.get<string>('NODE_ENV') !== 'production',
-        dir: './src/client',
+        dir: '../client',
       });
       await this.server.prepare();
       this.loggerService.log('Next.js server initialized.');

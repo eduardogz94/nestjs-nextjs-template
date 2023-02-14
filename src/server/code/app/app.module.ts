@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConsoleModule } from 'nestjs-console';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { SeedService } from 'src/server/console/seed.service';
+import { SeedService } from '../../console/seed.service';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { AuthModule } from './auth/auth.module';
 import { CoreModule } from '../core/core.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
