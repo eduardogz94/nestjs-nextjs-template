@@ -397,6 +397,7 @@ Temporary Items
 .env
 .env.production
 .env.development
+.env.test
 dist
 
 notes.md
