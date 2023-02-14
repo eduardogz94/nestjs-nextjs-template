@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AppProps } from "next/app";
 import { NextPageWithLayout } from "./page";
 
-import CacheProvider from "providers/CacheProvider";
+import CacheProvider from "../providers/CacheProvider";
 import "./globals.css";
 
 interface Props extends AppProps {

@@ -3,7 +3,7 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 import * as NextImage from "next/image";
 import React from "react";
 import "../pages/globals.css";
-import StorageProvider from "../providers/StorageProvider";
+import CacheProvider from "../providers/CacheProvider";
 
 const BREAKPOINTS_INT = {
   xs: 375,
@@ -38,9 +38,9 @@ Object.defineProperty(NextImage, "default", {
 
 export const decorators = [
   (Story) => (
-    <StorageProvider>
+    <CacheProvider>
       <Story />
-    </StorageProvider>
+    </CacheProvider>
   ),
 ];
 

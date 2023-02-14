@@ -19,9 +19,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install dependencies
-        run: yarn install
+        run: cd src/server && yarn install
       - name: Test and coverage
-        run: yarn test:cov
+        run: cd src/server && yarn test:cov
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:

@@ -1,4 +1,5 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
@@ -8,10 +9,11 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: ["./jest.setup.js"],
   moduleNameMapper: {
     "\\.(css|less|scss)$": "./__mocks__/styleMock.js",
     "\\.(gif|ttf|eot|svg)$": "./__mocks__/fileMock.js",
+    "^~/(.*)": "<rootDir>/$1",
   },
   testEnvironment: "jest-environment-jsdom",
   verbose: true,
