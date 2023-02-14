@@ -397,6 +397,7 @@ Temporary Items
 .env
 .env.production
 .env.development
+.env.test
 dist
 
 notes.md
@@ -410,3 +411,5 @@ src/client/next
 src/client/next-env.d.ts
 src/client/yarn.lock
 src/client/package-lock.json
+
+src/server/coverage
